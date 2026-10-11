@@ -1,15 +1,16 @@
 from django.db import models
 from django.db.models import ForeignKey
 from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField
+from wagtail.blocks import RichTextBlock
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.models import Page
 
 
 class HomePage(Page):
-
-    #db
+    # db
     subtitle = models.TextField(
         max_length=255,
         null=True,
@@ -28,9 +29,30 @@ class HomePage(Page):
         related_name='+'
     )
 
-    #user input
+    body = StreamField(
+        [
+            ('rtfblock', RichTextBlock(
+                features=['h1', 'bold', 'italic', 'link', 'ol', 'ul'],
+                label="Текст"
+             )),
+            ('imgblock', ImageChooserBlock(
+                label="Изображение",
+                help_text="Изображение для страницы",
+                template='blocks/imgblock.html',
+            )),
+            ('youtubeblock', EmbedBlock(label="Видео"))
+        ],
+        block_counts={
+            'rtfblock': {'min_num': 1},
+            'imgblock': {'max_num': 2},
+        },
+        blank=True,
+    )
+
+    # user input
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
         FieldPanel('rtf_body'),
         FieldPanel('bg_image'),
+        FieldPanel('body')
     ]
