@@ -4,8 +4,8 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-{% endblock extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
 {% block content %}
 
@@ -24,7 +24,9 @@
 <!--        </div>-->
 <!--    {% endif %}-->
 
-<div>
+<div class="body-center">
+    <h1>{{ page.title }}</h1>
+
     {% include_block page.body %}
 </div>
 
