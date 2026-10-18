@@ -42,7 +42,7 @@ class NewsPage(Page):
 
 class HomePage(Page):
     parent_page_types = []
-    subpage_types = ['home.NewsPage']
+    subpage_types = ['home.NewsPage', 'equipment.EquipmentIndexPage']
 
     max_count = 1
 
