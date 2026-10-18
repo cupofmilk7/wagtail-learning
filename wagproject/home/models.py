@@ -11,7 +11,41 @@ from wagtail.models import Page
 from .blocks import FigCaptionBlock
 
 
+class NewsPage(Page):
+
+    #db
+    body = StreamField(
+        [
+            ('rtfblock', RichTextBlock(
+                features=['h1', 'bold', 'italic', 'link', 'ol', 'ul'],
+                label="Текст"
+            )),
+            ('imgblock', ImageChooserBlock(
+                label="Изображение",
+                help_text="Изображение для страницы",
+                template='blocks/imgblock.html',
+            )),
+            ('youtubeblock', EmbedBlock(label="Видео")),
+            ('figcaptionblock', FigCaptionBlock(label="Изображение с подписью"))
+        ],
+        block_counts={
+            'imgblock': {'max_num': 2},
+        },
+        blank=True,
+    )
+
+    # user input
+    content_panels = Page.content_panels + [
+        FieldPanel('body')
+    ]
+
+
 class HomePage(Page):
+    parent_page_types = []
+    subpage_types = ['home.NewsPage']
+
+    max_count = 1
+
     # db
     subtitle = models.TextField(
         max_length=255,
