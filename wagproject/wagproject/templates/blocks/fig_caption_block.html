@@ -1,0 +1,6 @@
+{% load wagtailimages_tags %}
+
+<figure>
+    {% image self.figure fill-200x200 style="border-radius:12px" %}
+    <figcaption>{{ self.caption }}</figcaption>
+</figure>

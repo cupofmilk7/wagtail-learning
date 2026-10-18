@@ -8,6 +8,8 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.models import Page
 
+from .blocks import FigCaptionBlock
+
 
 class HomePage(Page):
     # db
@@ -34,16 +36,16 @@ class HomePage(Page):
             ('rtfblock', RichTextBlock(
                 features=['h1', 'bold', 'italic', 'link', 'ol', 'ul'],
                 label="Текст"
-             )),
+            )),
             ('imgblock', ImageChooserBlock(
                 label="Изображение",
                 help_text="Изображение для страницы",
                 template='blocks/imgblock.html',
             )),
-            ('youtubeblock', EmbedBlock(label="Видео"))
+            ('youtubeblock', EmbedBlock(label="Видео")),
+            ('figcaptionblock', FigCaptionBlock(label="Изображение с подписью"))
         ],
         block_counts={
-            'rtfblock': {'min_num': 1},
             'imgblock': {'max_num': 2},
         },
         blank=True,
