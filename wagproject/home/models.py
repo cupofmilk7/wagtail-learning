@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import ForeignKey
+from django.db.models import ForeignKey, Model
 from wagtail.admin.panels import FieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.embeds.blocks import EmbedBlock
@@ -7,13 +7,13 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.models import Page
+from wagtail.snippets.models import register_snippet
 
 from .blocks import FigCaptionBlock
 
 
 class NewsPage(Page):
-
-    #db
+    # db
     body = StreamField(
         [
             ('rtfblock', RichTextBlock(
@@ -92,3 +92,24 @@ class HomePage(Page):
         FieldPanel('bg_image'),
         FieldPanel('body')
     ]
+
+
+@register_snippet
+class Footer(Model):
+    # db
+    bodytext = RichTextField(
+        null=True,
+        blank=True,
+    )
+
+    # user input
+    panels = [
+        FieldPanel('bodytext')
+    ]
+
+    def __str__(self):
+        return "Footer"
+
+    class Meta:
+        verbose_name = "Футер"
+        verbose_name_plural = "Футеры"

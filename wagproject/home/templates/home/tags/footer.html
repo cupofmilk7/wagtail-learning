@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+
+{% if footer %}
+<footer>
+    <hr>
+    <p>{{ footer.bodytext|richtext }}</p>
+</footer>
+{% endif %}
